@@ -2,6 +2,7 @@
 
 ##
 export FileContent='Creating text that shall be used \nfor sed example'
+export Replacingtx='this text will be used \nfor sed example'
 echo -e $FileContent > sed_file.txt
 set cnt=0
 
@@ -41,6 +42,21 @@ if (month = Jan) (\
 end if\
 ' sed_file.txt
 cnt=$((cnt+1))
+
+
+##To find lines numbers that contains certain pattern
+sed -n "/logic:/,/if$/=" sed_file.txt
+##note here we searched starting form line that has "logic"
+##to line that ends with "if". = is used to print line number
+
+##to find line that contains certain pattern that comes after certain patttern in specific group of lines
+sed -n "/logic:/,/if$/{/has/p}" sed_file.txt
+#note that p is used to print the line.
+
+
+##_______Replacement__________
+## Replace a whole line that contains certain pattern
+sed -i "/that shall/c $Replacingtx" sed_file.txt
 
 #sed -i '$i Operations = shall be updated' sed_file.txt
 #sed -i 's/\(Operations = \)\(.*\)\(be\)/\3'"${cnt}"'/' sed_file.txt
